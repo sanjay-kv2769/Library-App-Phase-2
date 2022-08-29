@@ -7,10 +7,10 @@ const mongoose = require("mongoose");
 
 const Userdata = require('../model/Userdata');
 
+// const isAuth = require('../middleware/is-auth');
+
 const mongoURI = "mongodb://localhost:27017/library"
 loginRouter.use(express.urlencoded({extended:true}));
-
-
 
 
 mongoose.connect(mongoURI,{
@@ -27,9 +27,6 @@ const store = new MongoDBSession({
     collection: "mySessions",
 
 });
-
-
-
 
 
 function router(nav){
@@ -54,7 +51,6 @@ function router(nav){
             img:"basheer.jpg"
         }
     ]
-
 
 
     loginRouter.use(
@@ -88,13 +84,20 @@ function router(nav){
         });
 
 
-        loginRouter.post("/userlog", async (req, res)=>{
+        loginRouter.post("/userlog", async(req, res)=>{
                 // alert("log working");
 
             const { email, password } = req.body;
+
+            // const admin = email;
+            // if(admin=="admin@gmail.com"){
+            //     return res.redirect('/books');
+            // }
+
+
        
         const user = await Userdata.findOne({email});
-
+        
         if(!user) {
             return res.redirect('/login');
         }
@@ -104,20 +107,20 @@ function router(nav){
         if (!isMatch) {
             return res.redirect("/login");
         }
+
+          
         req.session.isAuth = true;
         res.redirect("/books");
     });
-        loginRouter.get("/books", isAuth,(req, res) => {
-            res.render("books");
-    });
+      
+});
 
-    });
-
-
+loginRouter.get("/books", isAuth,(req, res) => {
+    res.render("books");
+});
 
     return loginRouter;
 }
-
 
 module.exports = router;
 

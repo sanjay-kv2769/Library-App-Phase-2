@@ -60,6 +60,7 @@ const nav2 = [
 // seperating files
 const booksRouter = require('./src/routes/bookRoutes')(nav1)  //passing nav to bookRoutes.js
 const authorsRouter = require('./src/routes/authorRoutes')(nav1)
+const updatebookRouter = require('./src/routes/updatebookRoutes')(nav1) //passing nav to adminRoutes.js
 const adminRouter = require('./src/routes/adminRoutes')(nav1) //passing nav to adminRoutes.js
 const adminauthRouter = require('./src/routes/adminauthRoutes')(nav1) //passing nav to adminauthRoutes.js
 // const authorRouter = require('./src/routes/authorRoutes')(nav)
@@ -75,6 +76,7 @@ app.set('view engine','ejs');
 app.set('views','./src/views');
 // 2nd router method
 app.use('/books',booksRouter);
+app.use('/updatebook',updatebookRouter);
 app.use('/admin',adminRouter);
 app.use('/adminauth',adminauthRouter);
 app.use('/authors',authorsRouter);
@@ -96,5 +98,5 @@ app.get('/',function(req,res){
 
 
 
-app.listen(4400); 
+app.listen(4600); 
 

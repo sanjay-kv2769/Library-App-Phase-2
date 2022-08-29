@@ -4,7 +4,7 @@ const signupRouter = express.Router();
 const session = require('express-session');
 const MongoDBSession = require('connect-mongodb-session')(session);
 const mongoose = require("mongoose");
-
+const isAuth = require('../middleware/is-auth');
 const Userdata = require('../model/Userdata');
 // const UserModel = require("..model/Userdata");
 const mongoURI = "mongodb://localhost:27017/library"
@@ -65,6 +65,13 @@ function router(nav){
         })
     )
 
+    // const isAuth = (req, res, next) => {
+    //     if(req.session.isAuth){
+    //         next()
+    //     } else{
+    //         res.redirect('/login')
+    //     }
+    // };
 
 
     // 2nd router method
